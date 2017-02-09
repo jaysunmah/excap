@@ -39,16 +39,32 @@ casper.waitForSelector('#yt-masthead', function() {
 	var self = this;
 	imagesArray.forEach(function (item) {
 		if (self.resourceExists(item)) {
-			//self.echo(item + ' loaded');
 			currentLinks += item + "\n"
 		} else {
 			var message = item + ' not loaded';
 			self.echo(message, 'ERROR');
 		}
 	});
+});
+
+casper.thenOpen('https://www.youtube.com/feed/subscriptions', function() {
+	this.echo("Checking Subscriptions...");
+	imagesArray = this.evaluate(getImages);
+	var self = this;
+	imagesArray.forEach(function (item) {
+		if (self.resourceExists(item)) {
+			currentLinks += item + "\n"
+		} else {
+			var message = item + ' not loaded';
+			self.echo(message, 'ERROR');
+		}
+	});
+
+});
+
+casper.then(function() {
 	fs.write(logName, currentLinks, 'w');
 	this.echo("done");
 });
-
 
 casper.run();
