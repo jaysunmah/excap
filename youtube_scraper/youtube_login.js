@@ -5,20 +5,21 @@ var currentLinks = "";
 
 casper.start('https://accounts.google.com/ServiceLogin?uilel=3&service=youtube&hl=en&passive=true&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Ffeature%3Dsign_in_button%26next%3D%252F%26hl%3Den%26action_handle_signin%3Dtrue%26app%3Ddesktop', function() {
     this.echo(this.getTitle());
-	this.capture("a.png");
 });
 
 casper.then(function() {
-	this.sendKeys('input#Email', 'kristinyin@gmail.com');
+	this.echo("Inputting username...");
+	currentLinks += casper.cli.args[0] + "\n"
+	this.sendKeys('input#Email', casper.cli.args[0]);
 	this.click('input#next');
 });
 
 casper.wait(500, function() {
-	this.echo("Input Username");
+	this.echo("Filling in password...");
 });
 
 casper.then(function() {
-	this.sendKeys('input#Passwd', 'icecream');
+	this.sendKeys('input#Passwd', casper.cli.args[1]);
 	this.click('input#signIn');
 });
 
@@ -33,6 +34,7 @@ function getImages() {
 var imagesArray = [];
 
 casper.waitForSelector('#yt-masthead', function() {
+	this.echo("Signed in!");
 	imagesArray = this.evaluate(getImages);
 	var self = this;
 	imagesArray.forEach(function (item) {
