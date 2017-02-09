@@ -1,18 +1,26 @@
 import requests
 from PIL import Image
-
-
+import os
+import shutil
 
 def saveFromFile(file):
     with open(file,'r') as f:
         count = 0
-        for line in f:
-            print(line)
+        lines = f.readlines()
+        dirName = lines[0].strip()
+        try:
+            shutil.rmtree(dirName)
+            os.mkdir(dirName)
+        except:
+            os.mkdir(dirName)
+        for i in range(1,len(lines)):
+            line = lines[i]
             if "i.ytimg.com" in line and line.startswith("http"):
-                saveImage(count,line.strip())
+                print(line)
+                saveImage(dirName,count,line.strip())
                 count += 1
-def saveImage(name,url):
-    imgName = "newsave/" + str(name) + ".jpg"
+def saveImage(dirName,name,url):
+    imgName = dirName + "/" + str(name) + ".jpg"
     with open(imgName,'wb') as handle:
         response = requests.get(url,stream = True)
         if not response.ok:
@@ -24,7 +32,7 @@ def saveImage(name,url):
     img = Image.open(imgName)
     imgSize = img.size
     (x,y) = imgSize
-    newSize = (x/4,y/4)
+    newSize = (x/2,y/2)
     img = img.resize(newSize, Image.ANTIALIAS)
     img.save(imgName, optimize =True, quality=95)
     
