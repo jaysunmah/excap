@@ -1,4 +1,13 @@
-var casper = require('casper').create();
+var casper = require("casper").create({
+  stepTimeout: 60000,
+  timeout: 240000,
+  verbose: true,
+  onError: function(self, m) {
+    console.log('FATAL:' + m);
+    self.exit();
+  },
+});
+
 var fs = require("fs");
 var logName = 'output.txt';
 var currentLinks = "";
@@ -11,15 +20,17 @@ casper.then(function() {
 	this.echo("Inputting username...");
 	currentLinks += casper.cli.args[0] + "\n"
 	this.sendKeys('input#Email', casper.cli.args[0]);
+	//this.sendKeys('input#Email', 'kristinyin@gmail.com');
 	this.click('input#next');
 });
 
-casper.wait(500, function() {
+casper.wait(1000, function() {
 	this.echo("Filling in password...");
 });
 
 casper.then(function() {
 	this.sendKeys('input#Passwd', casper.cli.args[1]);
+	//this.sendKeys('input#Passwd', 'icecream');
 	this.click('input#signIn');
 });
 
@@ -54,15 +65,63 @@ casper.thenOpen('https://www.youtube.com/feed/subscriptions', function() {
 	imagesArray.forEach(function (item) {
 		if (self.resourceExists(item)) {
 			currentLinks += item + "\n"
-		} else {
-			var message = item + ' not loaded';
-			self.echo(message, 'ERROR');
+		//} else {
+			//var message = item + ' not loaded';
+			//self.echo(message, 'ERROR');
 		}
 	});
 
 });
 
+casper.thenOpen('https://www.youtube.com/feed/history', function() {
+	this.echo("waiting for history page to fully load...");
+	this.scrollToBottom();
+});
+
+
+casper.evaluate(function() {
+    var images = document.getElementsByTagName('img');
+    images = Array.prototype.filter.call(images, function(i) { return !i.complete; });
+    window.imagesNotLoaded = images.length;
+    Array.prototype.forEach.call(images, function(i) {
+        i.onload = function() { window.imagesNotLoaded--; };
+    });
+});
+ 
+casper.waitFor(function() {
+    return this.evaluate(function() {
+        return window.imagesNotLoaded < 5;
+    });
+}, function() { 	
+	this.echo("loaded!");
+
+	imagesArray = this.evaluate(getImages);
+	var self = this;
+	imagesArray.forEach(function (item) {
+		if (self.resourceExists(item)) {
+			currentLinks += item + "\n"
+		}
+	});
+
+}, function() {
+	this.echo("timed out :(")
+	this.capture("a.png");
+
+	imagesArray = this.evaluate(getImages);
+	var self = this;
+	imagesArray.forEach(function (item) {
+		if (self.resourceExists(item)) {
+			currentLinks += item + "\n"
+		}
+	});
+
+	fs.write(logName, currentLinks, 'w');
+	this.echo("still done");
+
+}, 10000);
+
 casper.then(function() {
+	this.capture("a.png");
 	fs.write(logName, currentLinks, 'w');
 	this.echo("done");
 });

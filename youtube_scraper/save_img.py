@@ -28,6 +28,7 @@ def saveFromFile(file):
         for thread in thread_list:
             thread.join()
         print("done")
+
 def saveImage(dirName,name,url):
     print(url)
     imgName = dirName + "/" + str(name) + ".jpg"
@@ -42,7 +43,7 @@ def saveImage(dirName,name,url):
     img = Image.open(imgName)
     imgSize = img.size
     (x,y) = imgSize
-    newSize = (x/2,y/2)
+    newSize = (2 * x,2 * y)
     img = img.resize(newSize, Image.ANTIALIAS)
     img.save(imgName, optimize =True, quality=95)
     
