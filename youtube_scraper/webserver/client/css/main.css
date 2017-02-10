@@ -1,0 +1,8 @@
+/* CSS declarations go here */
+html, body {
+    height: 100%;
+}
+
+.ui.image.project.item {
+  max-height: 250px;
+}

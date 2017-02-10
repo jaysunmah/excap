@@ -1,0 +1,29 @@
+body {
+	background-image: url('images/gray_tiles.png');
+}
+
+.ui.huge.header {
+	font-suze: 3em;
+}
+
+.ui.icon.button .ui.icon.buttons .button {
+	padding: 6px;
+}
+
+i.large.icons {
+	font-size: 2em;
+}
+
+.parent {
+	position: relative;
+	min-height: 100vh;
+}
+
+.child {
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+}

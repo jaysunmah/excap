@@ -1,0 +1,12 @@
+<template name="project_item">
+  <div class="ui transition {{isHidden}} segment project container {{itemIndex}}" id="{{totalIndex}}">
+    <h4>{{date}}</h4>
+    <img class="ui centered image project item" src ="{{image}}" />
+    <h2 class="ui sub header">{{title}}</h2>
+    <span>{{description}}</span>
+    <h2 class="ui sub header">LANGUAGES</h2>
+    <span>{{languages}}</span>
+    <div class="ui hidden divider"></div>
+    <a href="/projects" id="goTo{{totalIndex}}" class="project item link">See more</a>
+  </div>
+</template>
