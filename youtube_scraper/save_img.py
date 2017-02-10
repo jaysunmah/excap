@@ -4,9 +4,9 @@ import os
 import shutil
 import threading
 
-def saveFromFile(file):
+def saveFromFile():
     thread_list = []
-    with open(file,'r') as f:
+    with open("output.txt",'r') as f:
         count = 0
         lines = f.readlines()
         dirName = lines[0].strip()
@@ -30,7 +30,6 @@ def saveFromFile(file):
         print("done")
 
 def saveImage(dirName,name,url):
-    print(url)
     imgName = dirName + "/" + str(name) + ".jpg"
     with open(imgName,'wb') as handle:
         response = requests.get(url,stream = True)

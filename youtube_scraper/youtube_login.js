@@ -79,20 +79,7 @@ casper.thenOpen('https://www.youtube.com/feed/history', function() {
 });
 
 
-casper.evaluate(function() {
-    var images = document.getElementsByTagName('img');
-    images = Array.prototype.filter.call(images, function(i) { return !i.complete; });
-    window.imagesNotLoaded = images.length;
-    Array.prototype.forEach.call(images, function(i) {
-        i.onload = function() { window.imagesNotLoaded--; };
-    });
-});
- 
-casper.waitFor(function() {
-    return this.evaluate(function() {
-        return window.imagesNotLoaded < 5;
-    });
-}, function() { 	
+casper.then(function() {
 	this.echo("loaded!");
 
 	imagesArray = this.evaluate(getImages);
@@ -102,26 +89,10 @@ casper.waitFor(function() {
 			currentLinks += item + "\n"
 		}
 	});
+});
 
-}, function() {
-	this.echo("timed out :(")
-	this.capture("a.png");
-
-	imagesArray = this.evaluate(getImages);
-	var self = this;
-	imagesArray.forEach(function (item) {
-		if (self.resourceExists(item)) {
-			currentLinks += item + "\n"
-		}
-	});
-
-	fs.write(logName, currentLinks, 'w');
-	this.echo("still done");
-
-}, 10000);
 
 casper.then(function() {
-	this.capture("a.png");
 	fs.write(logName, currentLinks, 'w');
 	this.echo("done");
 });

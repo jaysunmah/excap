@@ -14,7 +14,6 @@ def openImagesFromFolder(outputDir,refImage, fileNames, count):
         resultArray.append(row)
 
     imageCount = 0
-    # for filename in os.listdir(folderName)[1:]:
     for filename in fileNames:
         imageCount += 1
         imgName = folderName + "/" + filename
@@ -61,8 +60,6 @@ def openImages(folderName):
             totalCount += 1
             openImagesFromFolder(folderName + "_parsed",refImage, fileNames, totalCount)
             fileNames = []
-
-
     
 folderName = sys.argv[1]
 
