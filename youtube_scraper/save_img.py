@@ -47,5 +47,3 @@ def saveImage(dirName,name,url):
     img = img.resize(newSize, Image.ANTIALIAS)
     img.save(imgName, optimize =True, quality=95)
     
-fileName = "output.txt"
-saveFromFile(fileName)
