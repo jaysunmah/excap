@@ -4,7 +4,7 @@ import cv2
 import sys
 
 
-def openImagesFromFolder(refImage, fileNames, count):
+def openImagesFromFolder(outputDir,refImage, fileNames, count):
     rows, cols, channels = refImage.shape
     resultArray = []
     for r in xrange(rows):
@@ -35,7 +35,7 @@ def openImagesFromFolder(refImage, fileNames, count):
             newImage[r,c][2] = resultArray[r][c][2] / imageCount
 
 
-    cv2.imwrite(str(count) + "_parsed.jpg", newImage)
+    cv2.imwrite(outputDir + "/" + str(count) + "_parsed.jpg", newImage)
     print("done")
 
 
@@ -47,6 +47,11 @@ def openImages(folderName):
     refImageName = os.listdir(folderName)[3]
     refImage = cv2.imread(folderName + "/" + refImageName)
     totalCount = 0
+    try:
+        shutil.rmtree(folderName + "_parsed")
+        os.mkdir(folderName + "_parsed")
+    except:
+        os.mkdir(folderName + "_parsed")
 
     for filename in os.listdir(folderName):
         currentCount += 1
@@ -54,7 +59,7 @@ def openImages(folderName):
         if (currentCount == blockCount):
             currentCount = 1
             totalCount += 1
-            openImagesFromFolder(refImage, fileNames, totalCount)
+            openImagesFromFolder(folderName + "_parsed",refImage, fileNames, totalCount)
             fileNames = []
 
 
