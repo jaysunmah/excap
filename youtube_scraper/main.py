@@ -16,12 +16,7 @@ def index():
 #This will return list of bus times given a stop code
 class RunCasper(Resource):
     def get(self, username, password):
-        print("Running youtube login script")
-        os.system("casperjs youtube_login.js '%s' '%s'" % (username, password))
-        print("Finished obtaining image urls!")
-        print("Downloading the images...")
-        os.system("time python save_img.py")
-        print("Finished downloading images")
+        os.system("time python run.py %s %s" % (username, password))
 
         return {
             "username": username,
