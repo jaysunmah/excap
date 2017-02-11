@@ -1,10 +1,11 @@
 <template name="landing">
   <div class="ui transition hidden container parent" id="landingContainer">
     <div class="child">
-      {{#if loadingData}}
-        <div class="ui teal progress" id="loadingInfo">
+        {{#if loadingData}}
+        <div class="ui small grey progress" id="loadingInfo">
           <div class="bar"></div>
-          <div class="label">{{loadingStatus}}</div>
+          <!--<div class="label">{{loadingStatus}}</div>-->
+          <div class="label">69% Loading test...</div>
         </div>
       {{else}}
       <div class="about">

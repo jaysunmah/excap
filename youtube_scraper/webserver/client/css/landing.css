@@ -38,6 +38,12 @@ h3 {
 	font-family: 'Wire One', sans-serif;
 	color: #959199;
 }
+.label {
+	font-family: 'Wire One', sans-serif;
+	font-size: 20px !important;
+	font-weight: bold;
+
+}
 .about {
 	text-align: left;
 }
@@ -63,4 +69,19 @@ h3 {
 }
 .generate {
 	text-align:right;
+}
+.image_container p {
+	padding-top: 25px;
+	text-align: center;
+	font-family: 'Wire One', sans-serif;
+    font-size:60px;	
+    color:959199;
+}
+.image_container img {
+	padding-top: 60px;
+	padding-bottom: 80px;
+	margin: auto;
+	display:block;
+	width: 540px;
+	height:auto;
 }
