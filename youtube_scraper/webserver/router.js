@@ -6,10 +6,8 @@ Router.route('/', function() {
   this.render('landing');
 });
 
-Router.route('/projects', function() {
-  this.render('projects');
-});
-
-Router.route('/admin/console', function() {
-  this.render('console');
+Router.route('/view_image/:username', function () {
+	this.render("view_image", {
+		data: function() { return this.params.username}
+	});
 });
