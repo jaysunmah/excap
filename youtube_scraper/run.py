@@ -18,4 +18,5 @@ os.system("mv %s_parsed parsed" % (sys.argv[1]))
 os.system("mkdir %s" % (sys.argv[1]))
 os.system("mv downloaded %s" % (sys.argv[1]))
 os.system("mv parsed %s" % (sys.argv[1]))
-
+os.system("python overlay.py %s" % (sys.argv[1]))
+os.system("cp %s/%s_parsed_stitched.png webserver/public/images" % (sys.argv[1],sys.argv[1]))
