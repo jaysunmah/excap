@@ -7,10 +7,16 @@
           <div class="label">22% Earned</div>
         </div>
       {{else}}
+      <div class="about">
+        <div class="title">
+          Untitled.
+        </div>
+      </div>
+      <div class ="generate">
         <div class="ui input">
           <div class="ui grid">
             <div class="row">
-              <h1>Username</h1>
+              <h1>E-mail</h1>
             </div>
             <div class="row">
               <input type="text" id="username"/>
@@ -22,12 +28,13 @@
               <input type="password" id="password"/>
             </div>
             <div class="row">
-              <div class="ui primary button" id="runScript">
-                Submit
+              <div class="ui grey basic button" id="runScript">
+                Generate
               </div>
             </div>
           </div>
         </div>
+      </div>
       {{/if}}
     </div>
   </div>
