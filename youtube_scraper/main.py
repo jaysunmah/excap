@@ -15,8 +15,22 @@ def index():
 
 #This will return list of bus times given a stop code
 class RunCasper(Resource):
-    def get(self, username, password):
-        os.system("time python run.py %s %s" % (username, password))
+    def get(self, service, username, password):
+        if (service == "youtube"):
+            os.system("casperjs youtube_login.js %s %s" % (username, password))
+        elif (service == "save_images"):
+            os.system("python save_img.py")
+        elif  (service == "parse_images"):
+            os.system("python parse_images.py %s" % username)
+        elif (service == "arrange_files"):
+            os.system("mv %s downloaded" % username)
+            os.system("mv %s_parsed parsed" % username)
+            os.system("mkdir %s" % username)
+            os.system("mv downloaded %s" % username)
+            os.system("mv parsed %s" % username)
+            os.system("python overlay.py %s" % username)
+            os.system("cp %s/%s_parsed_stitched.png webserver/public/images" % (username, username))
+        # os.system("time python run.py %s %s" % (username, password))
 
         return {
             "username": username,
@@ -25,7 +39,7 @@ class RunCasper(Resource):
 
         return {"message": "success!"}
 
-api.add_resource(RunCasper, '/runscript/<string:username>/<string:password>')
+api.add_resource(RunCasper, '/runscript/<string:service>/<string:username>/<string:password>')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=8080)
