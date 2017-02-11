@@ -1,6 +1,9 @@
+
 body {
-	background-image: url('images/gray_tiles.png');
+	background-color: #FFFCF7;
 }
+
+
 
 .ui.huge.header {
 	font-suze: 3em;
@@ -25,5 +28,39 @@ i.large.icons {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	text-align: center;
+}
+
+h1 {
+	font-family: 'Wire One', sans-serif;
+	color: #959199;
+}
+h3 {
+	font-family: 'Wire One', sans-serif;
+	color: #959199;
+}
+.about {
+	text-align: left;
+}
+.title {
+	font-size: 40px;
+	font-weight: bold;
+	font-family: 'Wire One', sans-serif;
+	color: #959199;
+}
+.ui.basic.button {
+	font-family: 'Wire One', sans-serif;
+	font-weight: bold;
+	font-size:24px;
+	padding: 15px;
+}
+
+#username:focus {
+	border-color: #959199;
+}
+
+#password:focus {
+	border-color: #959199;
+}
+.generate {
+	text-align:right;
 }
