@@ -1,5 +1,6 @@
 import os
 import sys
+import check_youtube
 
 from flask import Flask, request
 from flask_restful import Resource, Api
@@ -30,6 +31,10 @@ class RunCasper(Resource):
             os.system("mv parsed %s" % username)
             os.system("python overlay.py %s" % username)
             os.system("cp %s/%s_parsed_stitched.png webserver/public/images" % (username, username))
+        elif (service == "check_login"):
+            print("Checking youtube account info...")
+            os.system("casperjs youtube_verify.js %s %s" % (username, password))
+            return check_youtube.checkSuccessLogin()
         # os.system("time python run.py %s %s" % (username, password))
 
         return {

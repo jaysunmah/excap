@@ -21,4 +21,8 @@ Meteor.methods({
     // this.unblock();
     return HTTP.get("http://127.0.0.1:8080/runscript/arrange_files/" + username + "/" + password);
   },
+  'checkLogin': function(username, password) {
+    // this.unblock();
+    return HTTP.get("http://127.0.0.1:8080/runscript/check_login/" + username + "/" + password);
+  },
 });
