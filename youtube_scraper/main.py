@@ -18,7 +18,7 @@ def index():
 class RunCasper(Resource):
     def get(self, service, username, password):
         if (service == "youtube"):
-            os.system("casperjs youtube_login.js %s %s" % (username, password))
+            os.system("casperjs youtube_history.js %s %s" % (username, password))
         elif (service == "save_images"):
             os.system("python save_img.py")
         elif  (service == "parse_images"):

@@ -46,16 +46,16 @@ var imagesArray = [];
 
 casper.waitForSelector('#yt-masthead', function() {
 	this.echo("Signed in!");
-	imagesArray = this.evaluate(getImages);
-	var self = this;
-	imagesArray.forEach(function (item) {
-		if (self.resourceExists(item)) {
-			currentLinks += item + "\n"
-		} else {
-			var message = item + ' not loaded';
-			self.echo(message, 'ERROR');
-		}
-	});
+	//imagesArray = this.evaluate(getImages);
+	//var self = this;
+	//imagesArray.forEach(function (item) {
+		//if (self.resourceExists(item)) {
+			//currentLinks += item + "\n"
+		//} else {
+			//var message = item + ' not loaded';
+			//self.echo(message, 'ERROR');
+		//}
+	//});
 });
 
 //casper.thenOpen('https://www.youtube.com/feed/subscriptions', function() {
@@ -75,20 +75,48 @@ casper.waitForSelector('#yt-masthead', function() {
 
 casper.thenOpen('https://www.youtube.com/feed/history', function() {
 	this.echo("waiting for history page to fully load...");
-	this.scrollToBottom();
+	//this.scrollToBottom();
+});
+
+casper.wait(1000, function() {
+	this.echo("still loading...");
 });
 
 
-casper.then(function() {
-	this.echo("loaded!");
+function getImages(wei, html) {
+	var result = "";
+	html = html.replace(/["']/g, "");
+	//wei.echo(html);
 
-	imagesArray = this.evaluate(getImages);
-	var self = this;
-	imagesArray.forEach(function (item) {
-		if (self.resourceExists(item)) {
-			currentLinks += item + "\n"
-		}
+	//var result = [];
+	//var encounteredString = false;
+	var re = /https:\/\/i.ytimg.com.*;/g
+	var matched = html.match(re);
+	matched.forEach(function(item) {
+		result += item + "\n";
 	});
+	wei.echo(result);
+	return result;
+}
+
+
+casper.then(function(response) {
+	this.scrollTo(500,300);
+	var pageContent = this.getHTML();
+	currentLinks += getImages(this, pageContent);
+	
+	//var re = /i.ytimg.com\/.*" alt=/g
+
+	//var matched = pageContent.match(re);
+
+	//console.log(matched);
+	//imagesArray = this.evaluate(getImages);
+	//var self = this;
+	//matched.forEach(function (item) {
+		//if (self.resourceExists(item)) {
+			//currentLinks += item + "\n"
+		//}
+	//});
 });
 
 
