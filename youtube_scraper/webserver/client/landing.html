@@ -7,13 +7,26 @@
           <div class="label">{{loadingStatus}}</div>
         </div>
       {{else}}
-
-      <div class="about">
+    <div class="ui grid">
+      <div class="about eight wide column">
         <div class="title">
-          Untitled.
+          Youtube Portrait
         </div>
+        <div class="authors">
+          By: Kristin Yin and Jason Ma
+        </div>
+        <p> We were inspired by the idea of tracking one's browsing history to create a
+            portrait. Our browsing history is something that we believe is somewhat 
+            personal, because it represents so much of ourselves.
+            We decided to use Youtube as our source of data, because people tend to be more open
+            about their Youtube history, and we think it is a great way to visualize our data.
+        </p>
+        <p>
+            This machine  will log in to your Youtube account to generate a
+            portrait that is unique to you. Hope you have fun and let us know what you think of it!
+        </p>
       </div>
-      <div class ="generate">
+      <div class ="generate eight wide column">
         <div class="ui input" style="min-width: 50%;">
           <div class="ui grid" style="width: 100%;">
             <div class="left aligned row">
@@ -67,11 +80,14 @@
                 </div>
               </div>
             </div>
+
             {{/if}}
           </div>
         </div>
       </div>
+      </div>
       {{/if}}
+
     </div>
   </div>
 
